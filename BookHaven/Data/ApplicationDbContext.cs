@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BookHaven.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookHaven.Data
@@ -9,5 +10,9 @@ namespace BookHaven.Data
             : base(options)
         {
         }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Readlist> Readlists { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
     }
 }
