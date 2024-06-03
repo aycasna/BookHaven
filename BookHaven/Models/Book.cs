@@ -2,18 +2,34 @@
 {
     public class Book
     {
-        public int bookID { get; set; }
-        public string title { get; set; }
-        public string authors { get; set; }
-        public float average_rating { get; set; }
-        public string isbn { get; set; }
-        public int isbn13 { get; set; }
-        public string language_code { get; set; }
-        public int num_pages { get; set; }
-        public int ratings_count { get; set; }
-        public int text_reviews_count { get; set; }
-        public DateOnly publication_date { get; set; }
-        public string publisher { get; set; }
+        public int Id { get; set; } //primary key
+        public string ISBN { get; set; }
+        public string BookTitle { get; set; }
+        public string BookAuthor { get; set; }
+        public int YearOfPublication { get; set; }
+        public string Publisher { get; set; }
+        public string ImageURLS { get; set; }
+        public string ImageURLM { get; set; }
+        public string ImageURLL { get; set; }
 
+        public List<Review> Reviews { get; set; }
+
+        // Parameterless constructor required by EF Core
+        //private Book() { }
+
+        //// Constructor to set properties
+        //public Book(int id, string isbn, string booktitle, string bookauthor, int yearofpublication, string publisher, string imageurls, string imageurlm, string imageurll)
+        //{
+        //    Id = id;
+        //    ISBN = isbn;
+        //    BookTitle = booktitle;
+        //    BookAuthor = bookauthor;
+        //    YearOfPublication = yearofpublication;
+        //    Publisher = publisher;
+        //    ImageURLS = imageurls;
+        //    ImageURLM = imageurlm;
+        //    ImageURLL = imageurll;
+
+        //}
     }
 }

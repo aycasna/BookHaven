@@ -4,13 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookHaven.Models
 {
-    public class Review
+    public class Readlist
     {
         public int Id { get; set; }
-        public int Rating { get; set; }
-        public string Content { get; set; }
+        public bool isRead { get; set; } = false;
 
-        [Required] 
+        [Required]
         public string IdentityUserId { get; set; }
         [ForeignKey("IdentityUserId")]
         public IdentityUser User { get; set; }
@@ -18,5 +17,6 @@ namespace BookHaven.Models
         public int BookId { get; set; } // Book Id
         [ForeignKey("BookId")]
         public Book Book { get; set; }
+
     }
 }
