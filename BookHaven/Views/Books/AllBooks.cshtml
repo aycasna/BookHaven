@@ -1,0 +1,53 @@
+﻿@model PaginatedList<BookHaven.Models.Book>
+
+@{
+    ViewData["Title"] = "All Books";
+}
+
+<h1>All Books</h1>
+
+
+
+@foreach (var book in Model)
+{
+    <div class="container" style="background-color: rgba(129, 142, 139, 0.8); margin-top:50px; margin-bottom: 50px; padding: 20px; border-radius: 10px;">
+            <div class="row">
+                <div class="col col-xs-6 col-lg-5">
+                    <img src="@book.ImageURLL" style="max-width: 400px; max-height: 400px;" />
+                </div>
+                <div class="col col-xs-6 col-lg-7">
+                    <h5><a asp-action="Details" asp-route-id="@book.Id" style="color: black;">@book.BookTitle</a></h5>
+                    <div>Author: @book.BookAuthor</div>
+                    <div>Year of publication: @book.YearOfPublication.ToString()</div>
+                    <div>Publisher: @book.Publisher</div>
+                    <div>ISBN: @book.ISBN</div>
+                </div>
+            </div>
+        </div>
+}
+
+@if (!Model.Any())
+{
+    <p>No Books Found</p>
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <div class="btn" style="cursor: default">
+        Page @Model.PageIndex of @Model.TotalPages
+    </div>
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</div>
