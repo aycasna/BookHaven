@@ -11,12 +11,12 @@ namespace BookHaven.Models
         public string Content { get; set; }
 
         [Required] 
-        public string IdentityUserId { get; set; }
+        public string? IdentityUserId { get; set; }
         [ForeignKey("IdentityUserId")]
-        public IdentityUser User { get; set; }
+        public IdentityUser? User { get; set; }
 
-        public int BookId { get; set; } // Book Id
+        public int? BookId { get; set; } // Book Id
         [ForeignKey("BookId")]
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
     }
 }

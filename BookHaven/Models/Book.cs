@@ -12,7 +12,8 @@
         public string ImageURLM { get; set; }
         public string ImageURLL { get; set; }
 
-        public List<Review> Reviews { get; set; }
+        public List<Review>? Reviews { get; set; }
+        public List<Readlist>? Readlists { get; set; }
 
         // Parameterless constructor required by EF Core
         //private Book() { }

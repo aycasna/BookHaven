@@ -10,13 +10,13 @@ namespace BookHaven.Models
         public bool isRead { get; set; } = false;
 
         [Required]
-        public string IdentityUserId { get; set; }
+        public string? IdentityUserId { get; set; }
         [ForeignKey("IdentityUserId")]
-        public IdentityUser User { get; set; }
+        public IdentityUser? User { get; set; }
 
-        public int BookId { get; set; } // Book Id
+        public int? BookId { get; set; } // Book Id
         [ForeignKey("BookId")]
-        public Book Book { get; set; }
+        public Book? Book { get; set; }
 
     }
 }
