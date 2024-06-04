@@ -1,18 +1,82 @@
 ﻿@model BookHaven.Models.Book
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Details of Book</h1>
 
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="row">
-    </dl>
+
+
+
+<div class="container" style="background-color: rgba(129, 142, 139, 0.8); margin-top: 50px; margin-bottom: 50px; padding: 20px; border-radius: 10px;">
+    <div class="row">
+        
+        <div class="col col-xs-6 col-lg-5">
+            <img src="@Model.ImageURLL" class="book-image" />
+        </div>
+        <div class="col col-xs-6 col-lg-7">
+            <h4 style="text-align:match-parent">@Model.BookTitle</h4>
+            <div>Author: @Model.BookAuthor</div>
+            <div>Year of publication: @Model.YearOfPublication.ToString()</div>
+            <div>Publisher: @Model.Publisher</div>
+            <div>ISBN: @Model.ISBN</div>
+            @* a button to add to readlist if not already in readlist and if user is authenticated if in readlist add button for removing from readlist*@
+            @if(User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddToReadlist" method="post">
+                    <div>
+                        <input type="hidden" name="isRead" value="false" />
+                        <input type="hidden" name="IdentityUserId" value="@userManager.GetUserId(User)" />
+                        <input type="hidden" name="BookId" value="@Model.Id" />
+                        <input type="submit" class="btn btn-primary" value="Add to readlist">
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+
+<br>
+
+@if( User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <form asp-action="AddReview" method="post">
+            <h5>Add a review</h5>
+            <div>Rating: <input type="number" min="1" max="10" step="1" name="Rating" placeholder="1-10" /></div>
+            <textarea class="form-control" aria-label="With textarea" name="Content" placeholder="Review..." style="width:40%; vertical-align:top;"></textarea>
+            <input type="hidden" name="IdentityUserId" class="form-control" value="@userManager.GetUserId(User)"/>
+            <input type="hidden" name="BookId" class="form-control" value="@Model.Id" />
+            <input type="submit" class="btn btn-primary" style="display: inline-block; margin-top:10px;">
+        </form>
+    </div>
+}
+else
+{
+    <div class="container">
+            <h5>Add a review</h5>
+            <div>Rating: <input type="number" min="1" max="10" step="1" name="Rating" placeholder="1-10" /></div>
+            <textarea class="form-control" aria-label="With textarea" name="Content" placeholder="Review..." style="width:40%; vertical-align:top;"></textarea>
+            <input type="submit" disabled class="btn btn-primary" style="display: inline-block; margin-top:10px;">
+        
+    </div>
+}
+
+
+<br>
+
+<div class="container">
+    <h6>Reviews</h6>
+    @foreach(var review in Model.Reviews)
+    {
+        <div style="border:1px solid lightgray; margin: 10px; padding: 10px; border-radius: 10px; width: 40%; ">
+            <p>@review.User.UserName:</p>
+            <p>Rating: @review.Rating</p>
+            <p>@review.Content</p>
+        </div>
+    }
 </div>
