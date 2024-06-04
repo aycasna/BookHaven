@@ -1,6 +1,5 @@
 ﻿@model List<BookHaven.Models.Book>
 
-
 @{
     ViewData["Title"] = "Books";
 }
@@ -14,7 +13,7 @@
 
 
 
-@* @foreach (var book in randomBooks)
+@* @foreach (var book in Model)
 {
     <div class="container" style="background-color: rgba(129, 142, 139, 0.8); margin-top:50px; margin-bottom: 50px; padding: 20px; border-radius: 10px;">
             <div class="row">
@@ -30,8 +29,8 @@
                 </div>
             </div>
         </div>         
-}
- *@
+} *@
+
 
 
 @{
@@ -71,7 +70,11 @@
                         <div>Year of publication: @book.YearOfPublication.ToString()</div>
                         <div>Publisher: @book.Publisher</div>
                         <div>ISBN: @book.ISBN</div>
-                        @* a button to add to readlist *@
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            
+                        }
+
                     </div>
                 </div>
             }
@@ -98,7 +101,6 @@
                         <div>Year of publication: @book.YearOfPublication.ToString()</div>
                         <div>Publisher: @book.Publisher</div>
                         <div>ISBN: @book.ISBN</div>
-                        @* a button to add to readlist *@
                     </div>
                 </div>
             }
@@ -116,3 +118,26 @@
 {
     <p>No Books Found</p>
 }
+
+
+
+@* @{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <div class="btn" style="cursor: default">
+        Page @Model.PageIndex of @Model.TotalPages
+    </div>
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</div> *@
