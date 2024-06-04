@@ -1,5 +1,7 @@
 ﻿using BookHaven.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace BookHaven.Data.Services
 {
@@ -11,6 +13,9 @@ namespace BookHaven.Data.Services
         {
             _context = context;
         }
+
+        
+
         public IQueryable<Book> GetAll()
         {
             //return _context.Books != null ?
@@ -21,6 +26,15 @@ namespace BookHaven.Data.Services
 
             var applicationDbContext = _context.Books;
             return applicationDbContext;
+        }
+
+        public async Task<Book> GetById(int? id)
+        {
+            var book = await _context.Books
+                .Include(b => b.Reviews)
+                .ThenInclude(b => b.User)//user of a review
+                .FirstOrDefaultAsync(m => m.Id == id);
+            return book;
         }
     }
 }
