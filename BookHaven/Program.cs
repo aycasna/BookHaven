@@ -16,6 +16,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBooksService, BooksService>(); 
+builder.Services.AddScoped<IReadlistsService, ReadlistsService>();
+builder.Services.AddScoped<IReviewsService, ReviewsService>();
 
 var app = builder.Build();
 
