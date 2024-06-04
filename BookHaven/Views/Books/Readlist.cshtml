@@ -1,0 +1,74 @@
+﻿@model PaginatedList<BookHaven.Models.Readlist>
+
+@{
+    ViewData["Title"] = "Readlist";
+}
+
+<h1>Readlist</h1>
+
+
+
+@foreach (var readlist in Model)
+{
+
+
+
+
+    <div class="container" style="background-color: rgba(129, 142, 139, 0.8); margin-top:50px; margin-bottom: 50px; padding: 20px; border-radius: 10px;">
+        <div class="row">
+
+
+
+            @if (readlist == null)
+            {
+                <p>readlist is null</p>
+            }
+            else if (readlist.Book == null)
+            {
+                <p>readlist.Book is null</p>
+            }
+            else
+            {
+                <div class="col col-xs-6 col-lg-5">
+                    <img src="@readlist.Book.ImageURLL" style="max-width: 400px; max-height: 400px;" />
+                </div>
+                <div class="col col-xs-6 col-lg-7">
+                    <h5><a asp-action="Details" asp-route-id="@readlist.Book.Id" style="color: black;">@readlist.Book.BookTitle</a></h5>
+                    <div>Author: @readlist.Book.BookAuthor</div>
+                    <div>Year of publication: @readlist.Book.YearOfPublication.ToString()</div>
+                    <div>Publisher: @readlist.Book.Publisher</div>
+                    <div>ISBN: @readlist.Book.ISBN</div>
+                </div>
+            }
+
+
+            
+        </div>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <p>No Books Found</p>
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <div class="btn" style="cursor: default">
+        Page @Model.PageIndex of @Model.TotalPages
+    </div>
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</div>
