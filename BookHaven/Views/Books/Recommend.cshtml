@@ -1,0 +1,17 @@
+﻿@model BookHaven.Models.Recommendation
+
+<h2>Recommendations for @Model.Title</h2>
+
+@if (Model.RecommendedBooks != null && Model.RecommendedBooks.Count > 0)
+{
+    <ul>
+        @foreach (var book in Model.RecommendedBooks)
+        {
+            <li>@book[0] - Distance: @book[1]</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No recommendations found.</p>
+}

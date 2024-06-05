@@ -1,0 +1,13 @@
+﻿@model string
+
+<h2>Book Recommendation</h2>
+
+<form asp-action="Recommend" method="get">
+    <div>
+        <label for="title">Book Title:</label>
+        <input type="text" id="title" name="title" value="@Model" />
+    </div>
+    <div>
+        <button type="submit">Get Recommendations</button>
+    </div>
+</form>

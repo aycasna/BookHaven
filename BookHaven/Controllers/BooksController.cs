@@ -20,13 +20,17 @@ namespace BookHaven.Controllers
         private readonly IBooksService _booksService;
         private readonly IReadlistsService _readlistsService;
         private readonly IReviewsService _reviewsService;
+        private readonly IRecommendationService _recommendationService;
+        private readonly ILogger<BooksController> _logger;
 
-        public BooksController(IBooksService booksService, IReadlistsService readlistsService, IReviewsService reviewsService)
+        public BooksController(IBooksService booksService, IReadlistsService readlistsService, IReviewsService reviewsService, IRecommendationService recommendationService, ILogger<BooksController> logger)
         {
 
             _booksService = booksService;
             _readlistsService = readlistsService;
             _reviewsService = reviewsService;
+            _recommendationService = recommendationService;
+            _logger = logger;
         }
 
         // GET: Books
@@ -128,6 +132,45 @@ namespace BookHaven.Controllers
             }
             var book = await _booksService.GetById(review.BookId);
             return View("Details", book);
+        }
+
+
+
+        // GET: Books/GetRecommendation/5
+        public async Task<IActionResult> GetRecommendation()
+        {
+            return View();
+        }
+
+
+        public async Task<IActionResult> Recommend(string title)
+        {
+            //if (string.IsNullOrWhiteSpace(title))
+            //{
+            //    return BadRequest("Title cannot be empty");
+            //}
+
+            //var recommendations = await _recommendationService.GetRecommendations(title);
+            //if (recommendations == null)
+            //{
+            //    return NotFound("No recommendations found");
+            //}
+
+            //return View(recommendations);
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                return BadRequest("Title cannot be empty");
+            }
+
+            var recommendations = await _recommendationService.GetRecommendations(title);
+            if (recommendations == null || recommendations.RecommendedBooks == null || recommendations.RecommendedBooks.Count == 0)
+            {
+                _logger.LogWarning("No recommendations found for title: {Title}", title);
+                return NotFound("No recommendations found");
+            }
+
+            _logger.LogInformation("Recommendations found: {Recommendations}", recommendations);
+            return View(recommendations);
         }
 
         //// GET: Books/Create

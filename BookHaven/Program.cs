@@ -18,6 +18,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBooksService, BooksService>(); 
 builder.Services.AddScoped<IReadlistsService, ReadlistsService>();
 builder.Services.AddScoped<IReviewsService, ReviewsService>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+builder.Services.AddLogging();
+
+builder.Services.AddHttpClient();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 
 var app = builder.Build();
 
