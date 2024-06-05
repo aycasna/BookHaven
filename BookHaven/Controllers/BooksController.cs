@@ -145,17 +145,20 @@ namespace BookHaven.Controllers
 
         public async Task<IActionResult> Recommend(string title)
         {
+
             //if (string.IsNullOrWhiteSpace(title))
             //{
             //    return BadRequest("Title cannot be empty");
             //}
 
             //var recommendations = await _recommendationService.GetRecommendations(title);
-            //if (recommendations == null)
+            //if (recommendations == null || recommendations.RecommendedBooks == null || recommendations.RecommendedBooks.Count == 0)
             //{
+            //    _logger.LogWarning("No recommendations found for title: {Title}", title);
             //    return NotFound("No recommendations found");
             //}
 
+            //_logger.LogInformation("Recommendations found: {Recommendations}", recommendations);
             //return View(recommendations);
             if (string.IsNullOrWhiteSpace(title))
             {

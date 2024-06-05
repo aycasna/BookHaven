@@ -1,4 +1,4 @@
-﻿@model string
+﻿@* @model string
 
 <h2>Book Recommendation</h2>
 
@@ -9,5 +9,28 @@
     </div>
     <div>
         <button type="submit">Get Recommendations</button>
+    </div>
+</form>
+ *@
+
+
+@model string
+
+@{
+    ViewData["Title"] = "Get Recommendation";
+}
+
+<!-- Add CSS link for styling -->
+<link rel="stylesheet" href="~/css/get-recommendation.css">
+
+<h2>Book Recommendation</h2>
+
+<form asp-action="Recommend" method="get" class="recommendation-form">
+    <div class="form-group">
+        <label for="title">Book Title:</label>
+        <input type="text" id="title" name="title" value="@Model" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary">Get Recommendations</button>
     </div>
 </form>
